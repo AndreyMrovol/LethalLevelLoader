@@ -1,9 +1,18 @@
-**Changelog**
---
+# 1.2.3
 
-**<details><summary>Version 1.2.2</summary>**
+- Fixed issue regarding routing to Company
+- Changed ExtendedDungeonFlow.dungeonEvents to ExtendedDungeonFlow.DungeonEvents (Sorry to PoolRooms which likely needs an update)
+- Changed TerminalNode parameters used in TerminalManager functions to be ref values (Possibly breaks mrov related mods)
+- Added Custom EnemyTypes to debug spawn menus
+- Potentially fixed issue where Custom EnemyType Beastiary TerminalNode's had default values
+- Potentially fixed issues running the mod in editor by changing GameObject flags to a DontDestroyOnLoad call (Thanks nomnom)
+- Fixed issue with mods with matching author and mod names not receiving requested calls (May break custom enemy and item mods with custom code)
+- Potentially resolved issue with additional scenes listed in ExtendedLevel's not loading correctly
+- Potentially resolved issue with Route locking and hiding
+- Implemented @Sylvi's Better Item Saving pull request (Thanks for the help and sorry for the delay)
+- Added onShipLand and onShipLeave to ExtendedLevel and ExtendedDungeonFlow events
 
-**<details><summary>Fixes</summary>**
+# 1.2.2
 
 * Fixed issue where vanilla items were being incorrectly destroyed when playing multiple lobbies during the same game session
 * Restored functionality of the ExtendedLevel.IsRouteLocked feature
@@ -14,13 +23,7 @@
 * Added ExtendedMod.TryGetTag(string tag, out ContentTag contentTag) function
 * Added ExtendedMod.TryAddTag(string tag) function
 
-</details>
-
-</details>
-
-**<details><summary>Version 1.2.1</summary>**
-
-**<details><summary>Fixes</summary>**
+# 1.2.1
 
 * Updated LICENSE
 * Changed accessor for ExtendedDungeonFlow.GenerateAutomaticConfigurationOptions from internal to public
@@ -35,19 +38,11 @@
 * Added "Weapon" ContentTag to Knife
 * Added additional developer debug logging for the scene validation and selection process
 
-</details>
+# 1.2.0
 
-</details>
-
-
-**<details><summary>Version 1.2.0</summary>**
-
-**<details><summary>Features</summary>**
+## Features
 
 * Updated mod for Lethal Company version 50
-
-<details><summary>General</summary>
-
 * Added ExtendedMod
 * Added ExtendedEnemyType
 * Added ExtendedItem
@@ -73,7 +68,7 @@
 * Revamped Moons Catalogue display to dynamically adjust font size depending on the amount of Moons being displayed
 * Probably a lot more!
 
-</details>
+<br>
 
 <details><summary>ExtendedLevel</summary>
 
@@ -133,9 +128,7 @@ By default SelectableLevel.riskLevel is now automatically assigned using calcula
 
 </details>
 
-</details>
-
-**<details><summary>Fixes</summary>**
+## Fixes
 
 * Fixed switch Terminal command incorrectly working
 * Fixed Weather selection desyncing
@@ -153,198 +146,172 @@ By default SelectableLevel.riskLevel is now automatically assigned using calcula
 * Fixed issue where LethalLevelLoader was destroying assets in mods with multiple levels before it could correctly restore all those references first
 * Probably a lot more!
 
-</details>
+<br>
 
-</details>
+# 1.1.0
 
+## Features
 
-**<details><summary>Version 1.1.0</summary>**
+### Terminal >preview Keyword
+LethalLevelLoader now has a new feature added to the Terminal which allows users to change what information is previewed adjacent to each Moon listed in the `MoonsCatalogue`. This can be toggled via the `preview` verb keyword followed by one of the following options. (LethalLevelLoader also includes a configuration option to set which information type is used by default.)
 
-**<details><summary>Features</summary>**
-
-<details><summary>Terminal >preview Keyword</summary>
-* *LethalLevelLoader now has a new feature added to the Terminal which allows users to change what information is previewed adjacent to each Moon listed in the `MoonsCatalogue`. This can be toggled via the `preview` verb keyword followed by one of the following options. (LethalLevelLoader also includes a configuration option to set which information type is used by default.)*
-
-* * `preview weather`
-* * `preview difficulty`
-* * `preview history`
-* * `preview all`
-* * `preview none`
-* * `preview vanilla`
-</details>
+* `preview weather`
+* `preview difficulty`
+* `preview history`
+* `preview all`
+* `preview none`
+* `preview vanilla`
 
 
-<details><summary>Terminal >sort Keyword</summary>
-* *LethalLevelLoader now has a new feature added to the Terminal which allows users to decide how Moons are sorted when listed in the `MoonsCatalogue`. This can be toggled via the `sort` verb keyword followed by one of the following options. (LethalLevelLoader also includes a configuration option to set which sorting type is used by default.)*
+### Terminal >sort Keyword
+LethalLevelLoader now has a new feature added to the Terminal which allows users to decide how Moons are sorted when listed in the `MoonsCatalogue`. This can be toggled via the `sort` verb keyword followed by one of the following options. (LethalLevelLoader also includes a configuration option to set which sorting type is used by default.)
 
-* * `sort price`
-* * `sort difficulty`
-* * `sort tag`
-* * `sort quota`
-* * `sort run`
-* * `sort none`
-</details>
+* `sort price`
+* `sort difficulty`
+* `sort tag`
+* `sort quota`
+* `sort run`
+* `sort none`
 
-<details><summary>Terminal >filter Keyword</summary>
-* *LethalLevelLoader now has a new feature added to the Terminal which allows users to decide which Moons are listed in the `MoonsCatalogue`. This can be toggled via the `filter` verb keyword followed by one of the following options. (LethalLevelLoader also includes a configuration option to set which filtering type is used by default.)*
+### Terminal >filter Keyword
+LethalLevelLoader now has a new feature added to the Terminal which allows users to decide which Moons are listed in the `MoonsCatalogue`. This can be toggled via the `filter` verb keyword followed by one of the following options. (LethalLevelLoader also includes a configuration option to set which filtering type is used by default.)
 
-* * `filter price`
-* * `filter weather`
-* * `filter tag`
-* * `filter last travelled`
-* * `filter none`
-</details>
+* `filter price`
+* `filter weather`
+* `filter tag`
+* `filter last travelled`
+* `filter none`
 
-<details><summary>Terminal >simulate Keyword</summary>
-* *LethalLevelLoader now has a new feature added to the Terminal which allows users to "Simulate" landing on a Moon. This provides a presentable, lore friendly way to view the possible `DungeonFlow` choices with accurate rarity via the Terminal. To use this feature, use `simulate` and a Moon's name, the same way you would use `route`. LethalLevelLoader now includes a configuration option to switch between viewing the `DungeonFlow`'s rarity via raw value or calculated percentage.*
-</details>
+### Terminal >simulate Keyword
+LethalLevelLoader now has a new feature added to the Terminal which allows users to "Simulate" landing on a Moon. This provides a presentable, lore friendly way to view the possible `DungeonFlow` choices with accurate rarity via the Terminal. To use this feature, use `simulate` and a Moon's name, the same way you would use `route`. LethalLevelLoader now includes a configuration option to switch between viewing the `DungeonFlow`'s rarity via raw value or calculated percentage.
 
-<details><summary>LevelHistory</summary>
-* *LethalLevelLoader now has an experimental `LevelHistory` feature that stores notable information regarding each day in the current save. This includes information such as the Level, DungeonFlow, Weather and more. This feature allows modders and future updates to LethalLevelLoader to create mechanics and systems dependant on the history of the current play session.*
-</details>
+### LevelHistory
+LethalLevelLoader now has an experimental `LevelHistory` feature that stores notable information regarding each day in the current save. This includes information such as the Level, DungeonFlow, Weather and more. This feature allows modders and future updates to LethalLevelLoader to create mechanics and systems dependant on the history of the current play session.
 
-<details><summary>ExtendedDungeonFlow: Host Decides DungeonFlow & DungeonSize</summary>
+### ExtendedDungeonFlow: Host Decides DungeonFlow & DungeonSize
 * *LethalLevelLoader now modifies the way Lethal Company selects the random `DungeonFlow` and it's dungeon size so only the Host client selects these values which is then sent to the remaining non host clients. This is to help prevent game-breaking dungeon desync when players have mismatching dungeon configuration settings.*
-</details>
 
-<details><summary>ExtendedDungeonFlow: Dynamic Weather Rarity Injection</summary>
+### ExtendedDungeonFlow: Dynamic Weather Rarity Injection
 * *ExtendedDungeonFlow's now contain a `StringWithRarity` list which allows dungeon developers to dynamically inject their dungeon into the current `SelectableLevel`'s possible `DungeonFlow` options.*
-</details>
 
-<details><summary>ExtendedDungeonFlow: GlobalProp Dynamic Scaling</summary>
+### ExtendedDungeonFlow: GlobalProp Dynamic Scaling
 * *ExtendedDungeonFlow's now contain a `GlobalPropCountOverride` list which allows dungeon developers to dynamically increase or increase a `GlobalProp`'s minimum and maximum values based on the currently used dungeon size.*
-</details>
 
-<details><summary>ExtendedLevel: MoonCataloguePages & ExtendedLevelGroups</summary>
+### ExtendedLevel: MoonCataloguePages & ExtendedLevelGroups
 * *LethalLevelLoader now completely overhauls how the `MoonsCatalogue` TerminalNode functions internally. `ExtendedLevel`'s are now stored in groups via a class named `ExtendedLevelGroup`, These `ExtendedLevelGroup`'s are then stored in groups via a class named `MoonsCataloguePage`. This overhaul allows other mods and future updates to LethalLevelLoader to control and store `ExtendedLevel`s in many ways that were previously limited.*
-</details>
 
-<details><summary>ExtendedLevel: Lock Route</summary>
+### ExtendedLevel: Lock Route
 * *ExtendedLevel's now contain a `isLocked` bool and `lockedNodeText` string that controls whether the Level can currently be routed to via the Terminal. When locked the Terminal will display the `lockedNodeText` string as failed routing response on the Terminal (Or a generic response if the string is left empty)*
-</details>
 
-<details><summary>ExtendedLevel: Hide Level</summary>
+### ExtendedLevel: Hide Level
 * *ExtendedLevel's now contain a `isHidden` bool that controls whether the Level is displayed in the >Moons Terminal page*
-</details>
 
-<details><summary>ExtendedLevel: New Story Log Support</summary>
+### ExtendedLevel: New Story Log Support
 * *ExtendedLevel's can now add their own custom Story Log's, Without the need of custom code. ExtendedLevel's now contain a `List<StoryLogData>` that takes in a level-dependent `storyLogID` int, a `terminalWord`string, a `storyLogTitle` string and a `storyLogDescription` string.*
-</details>
 
-<details><summary>ExtendedLevel: Provide Level Info Description</summary>
+### ExtendedLevel: Provide Level Info Description
 * *By default ExtendedLevel's have their >info display text generated using their `SelectableLevel.LevelDescription` string, ExtendedLevel's now have an optional `infoNodeDescription` string if they wish to write their text manually.*
-</details>
 
-<details><summary>ExtendedLevel Events</summary>
+### ExtendedLevel Events
 * *ExtendedLevel's now contain gameplay specific `ExtendedEvent`'s that will Invoke when these events happen while playing the relevant ExtendedLevel.*
 
-* * `onLevelLoaded`
-* * `onDaytimeEnemySpawn(EnemyAI)`
-* * `onNighttimeEnemySpawn(EnemyAI)`
-* * `onStoryLogCollected(StoryLog)`
-* * `onApparatusTaken(LungProp)`
-* * `onPlayerEnterDungeon(EntranceTeleport, PlayerControllerB)`
-* * `onPlayerExitDungeon(EntranceTeleport, PlayerControllerB)`
-* * `onPowerSwitchToggle(bool)`
-</details>
+* `onLevelLoaded`
+* `onDaytimeEnemySpawn(EnemyAI)`
+* `onNighttimeEnemySpawn(EnemyAI)`
+* `onStoryLogCollected(StoryLog)`
+* `onApparatusTaken(LungProp)`
+* `onPlayerEnterDungeon(EntranceTeleport, PlayerControllerB)`
+* `onPlayerExitDungeon(EntranceTeleport, PlayerControllerB)`
+* `onPowerSwitchToggle(bool)`
 
-<details><summary>ExtendedDungeonFlow Events</summary>
+### ExtendedDungeonFlow Events
 * *ExtendedLevel's now contain gameplay specific `ExtendedEvent`'s that will Invoke when these events happen while playing the relevant ExtendedLevel.*
 
 
-* * `onBeforeDungeonGenerate(RoundManager)`
-* * `onSpawnedSyncedObjects(List<GameObject>)`
-* * `onSpawnedMapObjects(List<GameObject>)`
-* * `onSpawnedScrapObjects(List<GrabbableObject>)`
-* * `onEnemySpawnedFromVent(EnemyVent, EnemyAI)`
-* * `onApparatusTaken(LungProp)`
-* * `onPlayerEnterDungeon(EntranceTeleport, PlayerControllerB)`
-* * `onPlayerExitDungeon(EntranceTeleport, PlayerControllerB)`
-* * `onPowerSwitchToggle(bool)`
-</details>
+* `onBeforeDungeonGenerate(RoundManager)`
+* `onSpawnedSyncedObjects(List<GameObject>)`
+* `onSpawnedMapObjects(List<GameObject>)`
+* `onSpawnedScrapObjects(List<GrabbableObject>)`
+* `onEnemySpawnedFromVent(EnemyVent, EnemyAI)`
+* `onApparatusTaken(LungProp)`
+* `onPlayerEnterDungeon(EntranceTeleport, PlayerControllerB)`
+* `onPlayerExitDungeon(EntranceTeleport, PlayerControllerB)`
+* `onPowerSwitchToggle(bool)`
 
-<details><summary>Default Configuration Options</summary>
+### Default Configuration Options
 * *LethalLevelLoader now provides five new global configuration options.*
 
 
 * `Default PreviewInfo Toggle`
-* * *Controls which Preview Info setting is used when previewing moons via the Terminal `MoonCatalogue`.*
+* *Controls which Preview Info setting is used when previewing moons via the Terminal `MoonCatalogue`.*
 * `Default SortInfo Toggle`
-* * *Controls which Sort Info setting is used when previewing moons via the Terminal `MoonCatalogue`.*
+* *Controls which Sort Info setting is used when previewing moons via the Terminal `MoonCatalogue`.*
 * `Default FilterInfo Toggle`
-* * *Controls which Filter Info setting is used when previewing moons via the Terminal `MoonCatalogue`.*
+* *Controls which Filter Info setting is used when previewing moons via the Terminal `MoonCatalogue`.*
 * `Default SimulateInfo Toggle`
-* * *Controls whether rarity is displayed as it's raw value or a calculated percentage while using the >simulate Terminal keyword.*
+* *Controls whether rarity is displayed as it's raw value or a calculated percentage while using the >simulate Terminal keyword.*
 * `All DungeonFlows Require Matching`
-* * *Experimental setting that forces `DungeonFlow`'s requested by a `SelectableLevel` to have a valid dynamic match. false by default.*
-</details>
+* *Experimental setting that forces `DungeonFlow`'s requested by a `SelectableLevel` to have a valid dynamic match. false by default.*
 
-<details><summary>ExtendedLevel Automatic Configuration Options</summary>
+### ExtendedLevel Automatic Configuration Options
 * *LethalLevelLoader now provides automatically generated configuration options for all `ExtendedLevel`'s. This can be disabled by the author of the `ExtendedLevel` if they wish to provide these options themselves.*
 
-* * `enableContentConfiguration`
-* * `routePrice`
-* * `daySpeedMultiplier`
-* * `enablePlanetTime`
-* * `isLevelHidden`
-* * `isLevelRegistered`
-* * `minimumScrapItemSpawnsCount`
-* * `maxiumumScrapItemSpawnsCount`
-* * `scrapSpawnsList`
-* * `maximumInsideEnemyPowerCount`
-* * `maxiumumOutsideDaytimeEnemyPowerCount`
-* * `maximumOutsideNighttimeEnemyPowerCount`
-* * `insideEnemiesList`
-* * `outsideDaytimeEnemiesList`
-* * `outsideNighttimeEnemiesList`
-</details>
+* `enableContentConfiguration`
+* `routePrice`
+* `daySpeedMultiplier`
+* `enablePlanetTime`
+* `isLevelHidden`
+* `isLevelRegistered`
+* `minimumScrapItemSpawnsCount`
+* `maxiumumScrapItemSpawnsCount`
+* `scrapSpawnsList`
+* `maximumInsideEnemyPowerCount`
+* `maxiumumOutsideDaytimeEnemyPowerCount`
+* `maximumOutsideNighttimeEnemyPowerCount`
+* `insideEnemiesList`
+* `outsideDaytimeEnemiesList`
+* `outsideNighttimeEnemiesList`
 
-<details><summary>ExtendedDungeonFlow Automatic Configuration Options</summary>
+### ExtendedDungeonFlow Automatic Configuration Options
 * *LethalLevelLoader now provides automatically generated configuration options for all `ExtendedDungeonFlow`'s. This can be disabled by the author of the `ExtendedDungeonFlow` if they wish to provide these options themselves.*
 * 
-* * `EnableContentConfiguration`
-* * `manualContentSourceNameReferenceList`
-* * `manualPlanetNameReferenceList`
-* * `dynamicLevelTagsReferenceList`
-* * `dynamicRoutePriceReferenceList`
-* * `enableDynamicDungeonSizeRestriction`
-* * `minimumDungeonSizeMultiplier`
-* * `maximumDungeonSizeMultiplier`
-* * `restrictDungeonSizeScaler`
-</details>
+* `EnableContentConfiguration`
+* `manualContentSourceNameReferenceList`
+* `manualPlanetNameReferenceList`
+* `dynamicLevelTagsReferenceList`
+* `dynamicRoutePriceReferenceList`
+* `enableDynamicDungeonSizeRestriction`
+* `minimumDungeonSizeMultiplier`
+* `maximumDungeonSizeMultiplier`
+* `restrictDungeonSizeScaler`
 
-<details><summary>Content Config Helper Functions</summary>
+### Content Config Helper Functions
 * *LethalLevelLoader now provides a variety of helper functions for parsing configuration strings into usuable data. These are used in the `ExtendedLevel` and `ExtendedDungeonFlow` automatic configuration options to ensure standardization.*
 
-* * `List<StringWithRarity> ConvertToStringWithRarityList(string inputString, Vector2 clampRarity)`
-* * `List<Vector2WithRarity> ConvertToVector2WithRarityList(string inputString, Vector2 clampRarity)`
-* * `List<SpawnableEnemyWithRarity> ConvertToSpawnableEnemyWithRarityList(string inputString, Vector2 clampRarity)`
-* * `List<SpawnableItemWithRarity> ConvertToSpawnableItemWithRarityList(string inputString, Vector2 clampRarity)`
-* * `(string, string) SplitStringByIndexSeperator(string inputString)`
-* * `(string, string) SplitStringByKeyPairSeperator(string inputString)`
-* * `(string, string) SplitStringByVectorSeperator(string inputString)`
-</details>
+* `List<StringWithRarity> ConvertToStringWithRarityList(string inputString, Vector2 clampRarity)`
+* `List<Vector2WithRarity> ConvertToVector2WithRarityList(string inputString, Vector2 clampRarity)`
+* `List<SpawnableEnemyWithRarity> ConvertToSpawnableEnemyWithRarityList(string inputString, Vector2 clampRarity)`
+* `List<SpawnableItemWithRarity> ConvertToSpawnableItemWithRarityList(string inputString, Vector2 clampRarity)`
+* `(string, string) SplitStringByIndexSeperator(string inputString)`
+* `(string, string) SplitStringByKeyPairSeperator(string inputString)`
+* `(string, string) SplitStringByVectorSeperator(string inputString)`
 
-<details><summary>Extensions</summary>
+### Extensions
 * *LethalLevelLoader now provides a variety of helper extensions to assist in creating content in Lethal Company.*
 
-* * `DungeonFlow` `List<Tile>GetTiles()`
-* * `DungeonFlow` `List<RandomMapObject>GetRandomMapObjects()`
-* * `DungeonFlow` `List<SpawnSyncedObject>GetSpawnSyncedObjects()`
+* `DungeonFlow` `List<Tile>GetTiles()`
+* `DungeonFlow` `List<RandomMapObject>GetRandomMapObjects()`
+* `DungeonFlow` `List<SpawnSyncedObject>GetSpawnSyncedObjects()`
 
-* * `CompatibleNoun` `AddReferences(TerminalKeyword, TerminalNode)`
-* * `TerminalKeyword` `AddCompatibleNoun(TerminalKeyword, TerminalNode)`
-* * `TerminalNode` `AddCompatibleNoun(TerminalKeyword, TerminalNoun)`
-</details>
+* `CompatibleNoun` `AddReferences(TerminalKeyword, TerminalNode)`
+* `TerminalKeyword` `AddCompatibleNoun(TerminalKeyword, TerminalNode)`
+* `TerminalNode` `AddCompatibleNoun(TerminalKeyword, TerminalNoun)`
 
 
-<details><summary>Async AssetBundle Loading</summary>
+### Async AssetBundle Loading
 * *LethalLevelLoader now loads `.lethalbundle`s asynchronously to improve load times while starting Lethal Company. The progress of the AssetBundle loading can be viewed on the initial game launch options screen.*
-</details>
 
-</details>
-
-**<details><summary>Fixes</summary>**
+## Fixes
 
 * *The entire codebase has been refactored to streamline functionality, improve stability and reduce errors.*
 * *As a safety fallback, LethalLevelLoader will now select the Facility DungeonFlow if there are no DungeonFlow's for the game to select from.*
@@ -369,19 +336,11 @@ By default SelectableLevel.riskLevel is now automatically assigned using calcula
 * *Fixed an issue where `GetTiles()` could potentially trigger null reference exception errors.*
 * *Fixed major oversight where Game-Icons.net was not correctly attributed for LethalLevelLoader's logo*
 
-</details>
-
-</details>
-
-
-
-**<details><summary>Version 1.0.7</summary>**
+# 1.0.7
 
 * *Overhauled Custom Level system to use dynamically injected scenes rather than dynamically injected prefabs (Thanks onionymous!)*
 
-</details>
-
-**<details><summary>Version 1.0.6</summary>**
+# 1.0.6
 
 * *Moved all logs from Unity.Debug() to BepInEx.ManualLogSauce.LogInfo()*
 * *Modified Custom ExtendedLevel loading to initially disable all MeshColliders then reenable them asynchronously to vastly improve load times*
@@ -389,16 +348,12 @@ By default SelectableLevel.riskLevel is now automatically assigned using calcula
 * *Fixed oversight were Terminal moonsListCatalogue was being displayed inaccurately compared to base game implementation*
 * *Fixed issue were the NavMesh was incorrectly attempting to bake the Player Ship*
 
-</details>
-
-**<details><summary>Version 1.0.5</summary>**
+# 1.0.5
 
 * *Fixed issue related to SelectableLevel: March not being correctly loaded with it's intended DungeonFlow on additional visits*
 * *Revamped manualPlanetNameReferenceList comparison to increase the likelyhood of user inputs working as intended*
 
-</details>
-
-**<details><summary>Version 1.0.4</summary>**
+# 1.0.4
 
 * *Updated LethalLib dependancy from 0.10.1 to 0.11.0*
 * *Fixed issues related to SelectableLevel: March not being correctly loaded with it's intended DungeonFlow*
@@ -406,9 +361,7 @@ By default SelectableLevel.riskLevel is now automatically assigned using calcula
 * *Modified DungeonFlow_Patch levelTags check to increase odds of correctly matching user input*
 * *Removed deprecated debug logs*
 
-</details>
-
-**<details><summary>Version 1.0.3</summary>**
+# 1.0.3
 
 * *Fixed issues caused by the v47 and v48 updates, specific changes will be listed below*
 * *Fixed an oversight were ExtendedDungeonFlow dungeonID's were not being assigned correctly*
@@ -422,9 +375,7 @@ By default SelectableLevel.riskLevel is now automatically assigned using calcula
 * *Changed the way the basegame's internal variables are patched to resolve an issue where leaving the game would corrupt saves*
 * *Improved debug logs for clarity*
 
-</details>
-
-**<details><summary>Version 1.0.2</summary>**
+# 1.0.2
 
 * *All Registering of Custom Content has been moved from the GameNetworkManager.Awake() Prefix to the GameNetworkManager.Start() Prefix to give developers safe access to Awake() if needed.*
 * *AssetBundleLoader.specifiedFileExtension has now been changed to a public const to allow for improved referencing.*
@@ -441,16 +392,8 @@ By default SelectableLevel.riskLevel is now automatically assigned using calcula
 * *Cached Terminal.allTerminalKeywords for improved reference safetey.*
 * *Adjusted Harmony Patch Priority Orders from 0 to 350.*
 
-</details>
-
-**<details><summary>Version 1.0.1</summary>**
-
+# 1.0.1
 * *Updated README*
 
-</details>
-
-**<details><summary>Version 1.0.0</summary>**
-
+# 1.0.0
 * *Initial Release*
-
-</details>
