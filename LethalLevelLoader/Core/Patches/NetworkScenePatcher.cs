@@ -4,7 +4,6 @@ using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using static HookHelper;
@@ -100,6 +99,18 @@ public static class NetworkScenePatcher
         scenePathToBuildIndex.TryGetValue(scenePath, out int value);
         return (value);
     }
+
+    public static uint Hash32(this string str)
+    {
+        // Implement a 32-bit hash function, for example:
+        uint hash = 5381;
+        foreach (char c in str)
+        {
+            hash = ((hash << 5) + hash) + c; // hash * 33 + c
+        }
+        return hash;
+    }
+
     static void GenerateScenesInBuild_Hook(Action<NetworkSceneManager> orig, NetworkSceneManager self)
     {
         scenePathToBuildIndex.Clear();
@@ -127,8 +138,8 @@ public static class NetworkScenePatcher
             string scenePath = scenePaths[i];
             uint hash = scenePath.Hash32();
 
-            self.HashToBuildIndex.Add(hash, buildIndex);
-            self.BuildIndexToHash.Add(buildIndex, hash);
+            // self.HashToBuildIndex.Add(hash, buildIndex);
+            // self.BuildIndexToHash.Add(buildIndex, hash);
 
             scenePathToBuildIndex.Add(scenePath, buildIndex);
             indexToPath.Add(buildIndex, scenePath);

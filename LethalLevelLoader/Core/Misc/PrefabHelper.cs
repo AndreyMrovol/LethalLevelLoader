@@ -42,7 +42,7 @@ namespace LethalLevelLoader
 
             var hash = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Assembly.GetCallingAssembly().GetName().Name + name));
 
-            prefab.GetComponent<NetworkObject>().GlobalObjectIdHash = BitConverter.ToUInt32(hash, 0);
+            // prefab.GetComponent<NetworkObject>().NetworkObjectId = BitConverter.ToUInt32(hash, 0);
 
             //LethalLevelLoaderNetworkManager.RegisterNetworkPrefab(prefab);
             return prefab;

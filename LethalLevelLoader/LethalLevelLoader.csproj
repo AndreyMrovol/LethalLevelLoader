@@ -27,6 +27,10 @@
 
   </PropertyGroup>
 
+    <PropertyGroup>
+        <LETHAL_COMPANY_DIR></LETHAL_COMPANY_DIR>
+    </PropertyGroup>
+
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
       <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
@@ -69,7 +73,7 @@
 
   <ItemGroup>
     <PackageReference Include="MaxWasUnavailable.LethalModDataLib" Version="1.2.2" />
-    <PackageReference Include="LethalCompany.GameLibs.Steam" Version="70.0.0-ngd.0" Publicize="true" />
+    <!-- <PackageReference Include="LethalCompany.GameLibs.Steam" Version="70.0.0-ngd.0" Publicize="true" /> -->
   </ItemGroup>
 
   <ItemGroup>
@@ -78,12 +82,51 @@
 
   <ItemGroup>
     <Reference Include="LethalFoundation">
-      <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lethal Company\BepInEx\plugins\LethalFoundation\LethalFoundation.dll</HintPath>
+      <HintPath>..\lib\LethalFoundation.dll</HintPath>
     </Reference>
   </ItemGroup>
 
+  <ItemGroup Condition="$(CI) != 'true'">
+        <Reference Include="Assembly-CSharp" Publicize="true">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.Netcode.Runtime">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Unity.Netcode.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.Networking.Transport">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Unity.Networking.Transport.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextMeshPro">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Unity.TextMeshPro.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputSystem">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Unity.InputSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.Steamworks.Win64">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Facepunch.Steamworks.Win64.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.ProBuilder">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Unity.ProBuilder.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.Netcode.Components">
+            <HintPath>$(LETHAL_COMPANY_DIR)/Lethal Company_Data/Managed/Unity.Netcode.Components.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
   <Target Name="NetcodePatch" AfterTargets="PostBuildEvent">
-    <Exec Command="netcode-patch &quot;$(TargetPath)&quot; @(ReferencePathWithRefAssemblies-> '&quot;%(Identity)&quot;', ' ')" />
+    <Exec Command="path-to-the-new-netcode-patcher-cli -uv 2022.3.62 -nv 1.12.0 &quot;$(TargetPath)&quot; @(ReferencePathWithRefAssemblies-> '&quot;%(Identity)&quot;', ' ')" />
   </Target>
 
   <PropertyGroup>
@@ -115,14 +158,5 @@
       <!-- thunderstore publish -->
   <Target Name="PublishThunderstore" DependsOnTargets="SetPluginVersion;SaveVersionAndNameToFiles">
       <Exec Command="dotnet tcli publish --config-path &quot;$(ProjectDir)../assets/thunderstore.toml&quot; --file &quot;$(ProjectDir)dist/*-$(MinVerVersion).zip&quot;" />
-  </Target>
-
-    <!-- zipping the .dll alone for curseforge release -->
-  <Target Name="ZipCurseForge" AfterTargets="PackThunderstore">
-    <MakeDir Directories="$(ProjectDir)dist/output/" Condition="!Exists('$(ProjectDir)dist/output/')" />
-    <Copy SourceFiles="$(ProjectDir)bin/Release/netstandard2.1/$(AssemblyName).dll" DestinationFiles="$(ProjectDir)dist/output/$(AssemblyName).dll" />
-
-    <ZipDirectory SourceDirectory="$(ProjectDir)dist/output/" DestinationFile="$(ProjectDir)dist/curseforge.zip" Overwrite="true" />
-  </Target>
-  
+  </Target>  
 </Project>

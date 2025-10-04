@@ -59,7 +59,7 @@ namespace LethalLevelLoader
             Terminal.moonsCatalogueList = ExtendedContents.Where(e => e.IsRouteHidden == false).Select(e => e.SelectableLevel).ToArray();
             foreach (ExtendedLevel level in ExtendedContents)
             {
-                level.SetGameID(StartOfRound.levels.IndexOf(level.SelectableLevel));
+                level.SetGameID(StartOfRound.levels.ToList().IndexOf(level.SelectableLevel));
                 if (level is ITerminalEntry terminalEntry)
                     terminalEntry.TryRegister();
             }

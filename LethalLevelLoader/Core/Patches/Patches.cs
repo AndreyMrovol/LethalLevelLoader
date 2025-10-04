@@ -315,7 +315,7 @@ namespace LethalLevelLoader
                     if (extendedLevel.SelectableLevel.name == SaveManager.currentSaveFile.CurrentLevelName)
                     {
                         DebugHelper.Log("Loading Previously Saved SelectableLevel: " + extendedLevel.SelectableLevel.PlanetName, DebugType.User);
-                        levelID = Refs.Levels.IndexOf(extendedLevel.SelectableLevel);
+                        levelID = Refs.Levels.ToList().IndexOf(extendedLevel.SelectableLevel);
                         hasInitiallyChangedLevel = true;
                         return (true);
                     }
@@ -549,7 +549,7 @@ namespace LethalLevelLoader
         internal static void PlayerControllerBGetCurrentMaterialStandingOn_Postfix(PlayerControllerB __instance)
         {
             if (LevelLoader.TryGetFootstepSurface(__instance.hit.collider, out FootstepSurface footstepSurface))
-                __instance.currentFootstepSurfaceIndex = Refs.StartOfRound.footstepSurfaces.IndexOf(footstepSurface);
+                __instance.currentFootstepSurfaceIndex = Array.IndexOf(Refs.StartOfRound.footstepSurfaces, footstepSurface);
         }
 
         [HarmonyPatch(typeof(StartOfRound), nameof(StartOfRound.OnClientConnect)), HarmonyPostfix, HarmonyPriority(priority)]
@@ -565,7 +565,7 @@ namespace LethalLevelLoader
                 NetworkBundleManager.Instance.OnClientsChangedRefresh();
         }
 
-        [HarmonyPatch(typeof(NetworkConnectionManager), nameof(NetworkConnectionManager.OnClientDisconnectFromServer)), HarmonyPostfix, HarmonyPriority(priority)]
+        [HarmonyPatch(typeof(NetworkConnectionManager), nameof(NetworkConnectionManager.OnClientDisconnectCallback)), HarmonyPostfix, HarmonyPriority(priority)]
         internal static void NetworkConnectionManagerOnClientDisconnectFromServer_Postfix(ulong clientId)
         {
             if (clientId != Refs.LocalPlayer.actualClientId)
